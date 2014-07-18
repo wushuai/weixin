@@ -39,9 +39,11 @@ http.createServer(function(request, response){
 		request.addListener('end', function(){
 			var objPostData = querystring.parse(postData);
 			console.log(objPostData.name);
-		})
+		});
 	}
 	response.writeHead(200, {'Content-Type':'text/plain'});
 	response.end('Hello node');	
-}).listen(80, '121.14.98.48');
+}).listen(8088, '10.66.110.96');
 console.log('Server running...');
+
+
