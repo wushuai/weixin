@@ -22,8 +22,7 @@ http.createServer(function(request, response){
 		console.log(echostr);
 
 		var token = 'wushuaitoken';
-		var array = [token, timestamp, nonce];
-		array.sort();
+		var array = [token, timestamp, nonce].sort();
 		
 		var sha1 = crypto.createHash('sha1');
 		console.log(array);
