@@ -12,8 +12,8 @@ http.createServer(function(request, response){
 		var objGetParmas = querystring.parse(objUrl.query);
 		
 		var signature = objGetParmas.signature;
-		var timestamp = objGetParmas.timestamp;
-		var nonce = objGetParmas.nonce;
+		var timestamp = '' + objGetParmas.timestamp;
+		var nonce = '' + objGetParmas.nonce;
 		var echostr = objGetParmas.echostr;
 
 		console.log(signature);
@@ -26,10 +26,12 @@ http.createServer(function(request, response){
 		array.sort();
 		
 		var sha1 = crypto.createHash('sha1');
-		console.log(array.join(''));
-		var tempstr = sha1.update(array.join('')).digest().toString('base64')
+		console.log(array);
+		var tempstr = sha1.update(array.join('')).digest('hex');
 
-		console.log(tempstr);
+		if(tempstr == signature){
+			responseData = echostr;
+		}
 
 	}else if(request.method == 'POST'){
 		request.setEncoding('utf8');
@@ -42,8 +44,8 @@ http.createServer(function(request, response){
 		});
 	}
 	response.writeHead(200, {'Content-Type':'text/plain'});
-	response.end('Hello node');	
-}).listen(8088, '10.66.110.96');
+	response.end(responseData);	
+}).listen(80, '0.0.0.0');
 console.log('Server running...');
 
 
